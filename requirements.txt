@@ -24,6 +24,7 @@ click>=8.1.0
 colorama>=0.4.6
 tqdm>=4.66.0
 loguru>=0.7.0
+prometheus_client>=0.24.0
 
 # Type checking
 mypy>=1.4.0

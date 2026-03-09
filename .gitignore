@@ -1,0 +1,46 @@
+<<<<<<< Updated upstream
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+.env
+.venv/
+env/
+venv/
+.idea/
+.vscode/
+*.egg-info/
+dist/
+build/
+*.egg
+.eggs/
+*.log
+*.sqlite
+.coverage
+htmlcov/
+.pytest_cache/
+.mypy_cache/
+reports/
+*.xml
+node_modules/
+.DS_Store
+Thumbs.db
+supervisord.log
+supervisord.pid
+supervisor.sock
+logs/
+=======
+venv/
+.venv/
+__pycache__/
+*.pyc
+.pytest_cache/
+.vscode/
+/temp
+# Ignore local temporary venv created during setup
+C:\temp\ja_venv/
+.DS_Store
+# local environment file
+.env
+>>>>>>> Stashed changes
