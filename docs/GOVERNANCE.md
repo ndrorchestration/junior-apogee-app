@@ -1,5 +1,6 @@
 # Governance & Compliance
 
+<<<<<<< Updated upstream
 ## OWASP Agentic AI Top-10
 
 The platform implements all 10 OWASP Agentic AI security checks.
@@ -57,3 +58,6 @@ All governance checks follow the Gold Star Audit protocol:
 3. **Escalation Protocol** – CRITICAL findings trigger immediate HITL routing
 4. **Audit Trail** – All flags stored with timestamps, agent attribution, and task linkage
 5. **Mitigation Tracking** – Each flag has a `mitigated` field with resolution notes
+=======
+Guidelines for rights, ethics, hallucination checks, and archival quality.
+>>>>>>> Stashed changes

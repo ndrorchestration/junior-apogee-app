@@ -1,5 +1,6 @@
 # Agent Profiles
 
+<<<<<<< Updated upstream
 ## Overview
 
 Five specialized AI agents, each optimised for distinct roles within the
@@ -128,3 +129,6 @@ User Query
 
 Reciprocity can also coordinate all agents independently for complex
 multi-agent workflows where no single orchestrator is appropriate.
+=======
+Information about each agent's capabilities, configuration options, and roles.
+>>>>>>> Stashed changes

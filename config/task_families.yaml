@@ -1,3 +1,4 @@
+<<<<<<< Updated upstream
 # ──────────────────────────────────────────────────────────────────────────────
 # task_families.yaml  –  ~170 task family definitions across all eval layers
 # ──────────────────────────────────────────────────────────────────────────────
@@ -562,3 +563,10 @@ task_families:
     agent: Apogee
     success_bar: 0.90
     tags: [bfcl, tool-calling, parallel]
+=======
+# Example task families
+task_families:
+  - name: sample_task
+    description: "A placeholder task family"
+    success_criteria: "output == 'ok'"
+>>>>>>> Stashed changes

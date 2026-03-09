@@ -1,5 +1,6 @@
 # Evaluation Framework
 
+<<<<<<< Updated upstream
 ## Overview
 
 The Junior Apogee evaluation platform uses a **3-Layer Eval Spine** to assess
@@ -97,3 +98,6 @@ events when any metric drops below its threshold delta from the baseline.
 | `faithfulness`       | >3% drop | WARNING |
 | `tool_accuracy`      | >4% drop | WARNING |
 | `archival_quality`   | >5% drop | WARNING |
+=======
+This document will describe the three-layer evaluation spine and methodology.
+>>>>>>> Stashed changes

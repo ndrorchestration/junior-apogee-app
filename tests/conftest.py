@@ -1,3 +1,4 @@
+<<<<<<< Updated upstream
 """
 Shared pytest fixtures for the Junior Apogee test suite.
 """
@@ -216,3 +217,14 @@ def sample_task_archival() -> TaskCase:
             },
         },
     )
+=======
+import pytest
+
+from junior_apogee_app.evaluator import Evaluator
+
+
+@pytest.fixture
+def evaluator() -> Evaluator:
+    """A reusable evaluator instance for tests."""
+    return Evaluator()
+>>>>>>> Stashed changes

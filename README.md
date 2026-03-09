@@ -38,25 +38,58 @@ Tests & Data → Automated Eval Layer → Metrics & Dashboards → Drift Monitor
 
 ## Quick Start
 
-### Installation
+### Installation & Setup
 
 ```bash
 git clone https://github.com/Flickerflash/junior-apogee-app.git
 cd junior-apogee-app
+# create a virtual environment (recommended outside OneDrive)
+python -m venv .venv                # or choose a different path
+# PowerShell only:
+Set-ExecutionPolicy Bypass -Scope Process -Force
+.\.venv\Scripts\Activate.ps1
+# cmd shell:
+# .\.venv\Scripts\activate.bat
+python -m pip install --upgrade pip
 pip install -r requirements.txt
+# install the package in editable mode
+pip install -e .
 ```
 
-### Running Tests
+> Environment variables can be managed with a `.env` file; see `.env.example` for keys.
+
+### Project Layout
+
+```
+junior-apogee-app/           # repository root
+├── junior_apogee_app/       # python package
+├── config/                  # YAML definitions for tasks, metrics, agents
+├── docs/                    # detailed documentation (see below)
+├── scripts/                 # helper scripts (report generation, etc.)
+├── tests/                   # pytest-compatible test suite
+├── .github/                 # CI/configuration
+├── Makefile                 # common commands: install, test, lint
+└── README.md
+```
+
+### Common Commands
 
 ```bash
+# run unit tests
 python -m pytest tests/ -v
-```
 
-### Metrics Report
-
-```bash
+# generate a placeholder report
 python scripts/generate_report.py
+
+# invoke CLI helper (after package install)
+junior-apogee-app               # show top-level help
+junior-apogee-app report        # prints stub message
+junior-apogee-app list-agents   # enumerate registered agent types
+junior-apogee-app run --task '{"foo": "bar"}'  # execute a basic evaluation flow
+junior-apogee-app simulate      # start benchmark/simulation mode
+
 ```
+
 
 ## Configuration
 

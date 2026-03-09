@@ -1,3 +1,4 @@
+<<<<<<< Updated upstream
 # ──────────────────────────────────────────────────────────────────────────────
 # metrics.yaml  –  Metric definitions and targets
 # ──────────────────────────────────────────────────────────────────────────────
@@ -171,3 +172,9 @@ drift_monitoring:
     ethics_rights_pass: 0.01
     archival_quality:   0.05
     overall_score:      0.05
+=======
+# Example metrics
+task_success: 0.95
+faithfulness: 0.98
+tool_accuracy: 0.99
+>>>>>>> Stashed changes

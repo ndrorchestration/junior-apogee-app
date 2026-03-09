@@ -1,3 +1,4 @@
+<<<<<<< Updated upstream
 # ──────────────────────────────────────────────────────────────────────────────
 # agents.yaml  –  Agent configuration registry for Junior Apogee
 # ──────────────────────────────────────────────────────────────────────────────
@@ -81,3 +82,11 @@ agents:
       tool_accuracy: ~   # N/A
       ethics_rights: 1.00
       archival:      0.99
+=======
+# Example agents configuration
+agents:
+  - name: Apogee
+    type: reasoning
+  - name: Prodigy
+    type: action
+>>>>>>> Stashed changes

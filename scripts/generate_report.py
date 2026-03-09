@@ -1,3 +1,4 @@
+<<<<<<< Updated upstream
 """
 generate_report.py – CLI script to run the full evaluation suite
 and output a structured metrics report to stdout and/or a JSON file.
@@ -255,6 +256,21 @@ def main():
         verbose=args.verbose,
         output_file=args.output,
     )
+=======
+#!/usr/bin/env python3
+
+"""
+Generate metrics report (placeholder).
+"""
+
+from junior_apogee_app.config_loader import load_config
+
+
+def main():
+    metrics = load_config("metrics")
+    print("Metrics config:", metrics)
+    # Real implementation would aggregate results and write a report
+>>>>>>> Stashed changes
 
 
 if __name__ == "__main__":

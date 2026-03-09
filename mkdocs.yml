@@ -1,0 +1,7 @@
+site_name: Junior Apogee App
+nav:
+  - Home: index.md
+  - Evaluation Framework: docs/EVALUATION_FRAMEWORK.md
+  - Agents: docs/AGENT_PROFILES.md
+  - Test Suite: docs/TEST_SUITE.md
+  - Governance: docs/GOVERNANCE.md
