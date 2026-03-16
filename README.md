@@ -1,8 +1,8 @@
 # Junior Apogee App
 
-**Production-ready AI agent evaluation and QA platform**
+**Three-layer evaluation pipeline for AI assistants**
 
-Built on a 3-layer evaluation spine aligned with 2025-26 agentic AI best practices. Multi-agent scoring, automated testing, real-time dashboards, and comprehensive governance compliance checks (OWASP Agentic Top 10).
+A production-grade framework that runs tasks through tests, deterministic checks, and LLM-as-judge to produce audit-ready scorecards. Includes task family definitions, metric weights aligned with your evaluation rubrics, and a CLI + web dashboard for tracking agent performance across reasoning, tool-use, and outcomes.comprehensive governance compliance checks (OWASP Agentic Top 10).
 
 ## Features
 
