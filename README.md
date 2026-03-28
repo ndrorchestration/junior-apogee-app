@@ -30,3 +30,69 @@ Built on a 3-layer evaluation spine aligned with 2025–26 agentic AI best pract
 
 ```text
 Tests & Data → Automated Eval Layer → Metrics & Dashboards → Drift Monitoring → HITL
+
+
+## 5-Minute Quick Start
+
+Get Junior Apogee running and execute your first evaluation in < 5 minutes:
+
+### Step 1: Install
+```bash
+git clone https://github.com/Flickerflash/junior-apogee-app.git
+cd junior-apogee-app
+pip install -r requirements.txt
+```
+
+### Step 2: Configure
+Copy `.env.example` to `.env` and set your LLM API key (OpenAI, Anthropic, or local).
+
+### Step 3: Run an Evaluation
+```bash
+python app.py --config configs/example_eval.json
+```
+
+This executes a sample evaluation task and outputs results to `results/sample_results.json`.
+
+For Docker: `docker-compose up --build` or `docker run -e API_KEY=<your-key> flickerflash/junior-apogee:latest`
+
+---
+
+## Docker & Deployment
+
+**Docker**: Pre-built image available for cloud deployment.
+
+```bash
+docker build -t junior-apogee .
+docker run -e OPENAI_API_KEY=$OPENAI_API_KEY junior-apogee
+```
+
+**Docker Compose**: For local development with services.
+
+```bash
+docker-compose -f docker-compose.yml up
+```
+
+See `Dockerfile` and `docker-compose.yml` for full configuration.
+
+---
+
+## Example Evaluation Config
+
+See `configs/example_eval.json` for a sample evaluation specification:
+
+```json
+{
+  "name": "Agent Reasoning Test",
+  "task": "answer_question",
+  "input": "What are the main causes of climate change?",
+  "agents": ["Apogee", "Prodigy"],
+  "metrics": ["accuracy", "coherence", "bias"],
+  "threshold": 0.8
+}
+```
+
+Sample results are available in `results/sample_results.json` showing:
+- Per-agent scores (reasoning, tool-use, outcomes)
+- Compliance checks (OWASP Agentic Top 10)
+- Drift monitoring and trend analysis
+- HITL (Human-in-the-Loop) review flags
