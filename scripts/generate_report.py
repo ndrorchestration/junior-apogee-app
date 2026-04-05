@@ -131,8 +131,8 @@ def run_report(
         else list(ALL_AGENTS.keys())
     )
 
-    logger.info("Running evaluation for agents: %s", [agent.value for agent in target_agents])
-    logger.info("Tasks per agent: %s", tasks_per_agent)
+    logger.info(f"Running evaluation for agents: {[agent.value for agent in target_agents]}")
+    logger.info(f"Tasks per agent: {tasks_per_agent}")
 
     all_results: list[EvalResult] = []
     all_runs: list[AgentRun] = []
@@ -228,7 +228,7 @@ def run_report(
         Path(output_file).parent.mkdir(parents=True, exist_ok=True)
         with open(output_file, "w", encoding="utf-8") as file_handle:
             json.dump(report_data, file_handle, indent=2)
-        logger.success("Report saved to: %s", output_file)
+        logger.success(f"Report saved to: {output_file}")
 
     return report_data
 
