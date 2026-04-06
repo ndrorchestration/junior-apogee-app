@@ -7,7 +7,7 @@ on:
     branches: [main]
 
 jobs:
-  build:
+  compatibility-tests:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -19,21 +19,55 @@ jobs:
         run: |
           python -m pip install --upgrade pip
           pip install -r requirements.txt
-          pip install build
           pip install -e .
-      - name: Run compatibility and smoke tests
+      - name: Run compatibility tests
         run: |
-          python -m pytest tests/test_*.py tests/smoke -v
-      - name: Verify package and syntax
+          python -m pytest tests/test_*.py -v
+
+  smoke-tests:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: "3.11"
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+          pip install -e .
+      - name: Run smoke tests
+        run: |
+          python -m pytest tests/smoke -v
+      - name: Run CLI smoke command
         run: |
           python -m junior_apogee info
+
+  package-build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: "3.11"
+      - name: Install packaging tools
+        run: |
+          python -m pip install --upgrade pip
+          pip install build
+      - name: Verify syntax and build artifacts
+        run: |
           python -m compileall app.py src junior_apogee_app
           python -m build --sdist --wheel
 
   release:
     if: startsWith(github.ref, 'refs/tags/')
     runs-on: ubuntu-latest
-    needs: build
+    needs:
+      - compatibility-tests
+      - smoke-tests
+      - package-build
     steps:
       - uses: actions/checkout@v4
       - name: Set up Python
