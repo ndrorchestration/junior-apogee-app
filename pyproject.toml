@@ -4,9 +4,9 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "junior-apogee-app"
-version = "0.1.0-beta"
+version = "0.1.0b0"
 description = "Production-ready AI agent evaluation and QA platform"
-authors = [{name = "Ndr (Flickerflash)"}]
+authors = [{ name = "Ndr (Flickerflash)" }]
 dependencies = [
     "pydantic>=2.0.0",
     "python-dotenv>=0.21.0",
@@ -23,6 +23,7 @@ dependencies = [
     "colorama>=0.4.6",
     "tqdm>=4.66.0",
     "loguru>=0.7.0",
+    "prometheus-client>=0.24.0",
     "mypy>=1.4.0",
     "types-requests>=2.31.0",
     "black>=23.0.0",
@@ -51,10 +52,5 @@ profile = "black"
 known_first_party = ["junior_apogee"]
 skip = ["junior_apogee_app"]  # legacy shim — skip until retired in v1.0.0
 
-[tool.pytest.ini_options]
-testpaths = ["tests"]
-addopts = "-v --tb=short"
-
-[tool.mypy]
-files = ["src/junior_apogee"]
-ignore_missing_imports = true
+[tool.setuptools]
+package-dir = { "" = "src" }

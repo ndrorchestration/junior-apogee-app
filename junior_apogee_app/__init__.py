@@ -1,4 +1,4 @@
-"""junior_apogee_app — LEGACY COMPATIBILITY SHIM
+__version__ = "0.1.0b0"
 
 This package is retained for backward-compatibility only.
 All canonical code lives in src/junior_apogee/.
@@ -15,7 +15,9 @@ warnings.warn(
     stacklevel=2,
 )
 
-__version__ = "0.1.0-beta"  # mirrors src/junior_apogee version
+def main() -> None:
+    """Entry point for ``python -m junior_apogee_app``."""
+    from .cli import cli
 
 # Re-export main entry point so `python -m junior_apogee_app` still works
 def main() -> None:  # noqa: D103
