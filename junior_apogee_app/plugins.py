@@ -10,7 +10,7 @@ PLUGIN_DIR = Path(__file__).parent.parent / "plugins"
 def discover_plugins() -> list[str]:
     if not PLUGIN_DIR.exists():
         return []
-        return [plugin.stem for plugin in PLUGIN_DIR.glob("*.py") if plugin.stem != "__init__"]
+    return [plugin.stem for plugin in PLUGIN_DIR.glob("*.py") if plugin.stem != "__init__"]
 
 
 def load_plugin(name: str) -> Any:
