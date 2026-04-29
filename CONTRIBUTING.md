@@ -1,14 +1,20 @@
 # Contributing
 
-Thank you for considering contributing to Junior Apogee App!  
+> **Governance:** DGAF / Agent Apogee — All changes to this repository are subject to Sentinel CI/CD integrity enforcement. Contributions must pass governance checks before merge. See [DGAF-Framework](https://github.com/Flickerflash/DGAF-Framework) for spine documentation.
 
-This project follows Gold Star audit standards; any contributions should be documented, reviewed, and accompanied by tests where applicable.
+## Scope
+This repository is the Junior Apogee evaluation and QA workbench — Flask dashboard, layered evaluation logic, governance checks, and reporting scripts for multi-agent system assessment.
 
-## Getting started
-1. Fork the repository
-2. Create a feature branch
-3. Add tests for new functionality
-4. Follow the code style (Black/isort/flake8)
-5. Open a pull request describing your changes
+## Development
+- Keep changes small and reviewable.
+- Prefer explicit configuration over hidden defaults.
+- Run `python -m pytest tests -v` before pushing evaluation logic changes.
+- Validate config YAML files in `config/` before committing.
 
-Please refer to the [code of conduct](CODE_OF_CONDUCT.md) if one is added in future.
+## Architecture Changes
+- New evaluation layers must include unit tests and a corresponding config entry.
+- OWASP Agentic Top 10 compliance checks must not be removed or bypassed.
+
+## Pull Requests
+- Explain which evaluation layer or governance check is affected.
+- Note whether the change affects scoring logic, dashboard routes, or reporting output.
