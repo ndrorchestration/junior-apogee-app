@@ -1,22 +1,31 @@
 ---
-name: Bug report
-about: Create a report to help us improve
+name: Bug Report
+about: Report an eval failure, scoring regression, or dashboard error
+title: '[BUG] '
+labels: bug
+assignees: ndrorchestration
 ---
 
-**Describe the bug**
-A clear and concise description of what the bug is.
+## Affected Component
+<!-- e.g. eval engine, governance layer, Flask dashboard, metrics, tests -->
 
-**To Reproduce**
-Steps to reproduce the behavior:
+## Description
+
+## Reproduction Steps
 1. 
 2. 
 3. 
 
-**Expected behavior**
-A clear and concise description of what you expected to happen.
+## Expected vs Actual Behavior
 
-**Screenshots**
-If applicable, add screenshots to help explain your problem.
+## Severity
+- [ ] P1 — Eval produces unsafe or invalid output
+- [ ] P2 — Scoring / accuracy regression
+- [ ] P3 — Docs / metadata / UI
 
-**Additional context**
-Add any other context about the problem here.
+## Environment
+- Python version:
+- OS:
+- Relevant config (`agents.yaml`, `metrics.yaml`):
+
+## Additional Context

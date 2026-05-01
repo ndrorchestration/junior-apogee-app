@@ -1,20 +1,25 @@
 ---
 name: Feature Request
-about: Suggest a new feature or improvement
+about: Propose a new eval layer, governance check, or dashboard feature
+title: '[FEAT] '
 labels: enhancement
+assignees: ndrorchestration
 ---
 
 ## Summary
-<!-- One sentence: what do you want? -->
 
-## Motivation
-<!-- Why is this needed? What problem does it solve? -->
+## Problem / Gap
 
-## Proposed Solution
-<!-- How should it work? -->
+## Proposed Approach
 
-## Alternatives Considered
-<!-- Other approaches you thought about -->
+## Agent Roles Involved
+<!-- Which agents (Apogee, Amethyst, Sentinel, etc.) are affected? -->
 
-## Additional Context
-<!-- Links, screenshots, examples -->
+## Acceptance Criteria
+- [ ] 
+- [ ] 
+
+## Priority
+- [ ] High
+- [ ] Medium
+- [ ] Low
