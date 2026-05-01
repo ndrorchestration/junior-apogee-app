@@ -4,7 +4,7 @@
 ![License](https://img.shields.io/badge/License-Apache%202.0-blue)
 ![OWASP](https://img.shields.io/badge/Security-OWASP%20Agentic%20Top%2010-red)
 
-> **Governance:** DGAF / Agent Amethyst — Yes. Junior Apogee is the primary evaluation and QA platform in the DGAF stack, operated by **Agent Apogee**. Evaluation outputs feed into [resumeapex-eval](https://github.com/Flickerflash/resumeapex-eval) and [Driftwatch](https://github.com/Flickerflash/Driftwatch). See [DGAF-Framework](https://github.com/Flickerflash/DGAF-Framework) for spine documentation.
+> **Governance:** DGAF / Agent Amethyst — Yes. Junior Apogee is the primary evaluation and QA platform in the DGAF stack, operated by **Agent Apogee**. Evaluation outputs feed into [resumeapex-eval](https://github.com/ndrorchestration/resumeapex-eval) and [Driftwatch](https://github.com/ndrorchestration/Driftwatch). See [DGAF-Framework](https://github.com/ndrorchestration/DGAF-Framework) for spine documentation.
 
 Junior Apogee is an evaluation and QA workbench for multi-agent AI systems.
 It includes a Flask dashboard, layered evaluation logic, governance checks,
@@ -36,7 +36,7 @@ and tests, but new work should target the `src/` implementation.
 ## Quick Start
 
 ```bash
-git clone https://github.com/Flickerflash/junior-apogee-app.git
+git clone https://github.com/ndrorchestration/junior-apogee-app.git
 cd junior-apogee-app
 python -m venv .venv
 source .venv/bin/activate  # Windows: .venv\Scripts\activate
@@ -100,13 +100,13 @@ There is currently no `docker-compose.yml` in the repository.
 
 ## Related Ecosystem
 
-- [DGAF-Framework](https://github.com/Flickerflash/DGAF-Framework) — governance spine
-- [resumeapex-eval](https://github.com/Flickerflash/resumeapex-eval) — flagship Goldcanstaytoday benchmark (consumes Junior Apogee eval outputs)
-- [Driftwatch](https://github.com/Flickerflash/Driftwatch) — real-time drift detection on Junior Apogee output streams
-- [sentinel-governance](https://github.com/Flickerflash/sentinel-governance) — CI/CD integrity enforcement
-- [Amethyst-Governance-Eval-Stack](https://github.com/Flickerflash/Amethyst-Governance-Eval-Stack) — meta-orchestration eval layer
-- [Gold-star-standards](https://github.com/Flickerflash/Gold-star-standards) — certification rubrics this platform implements
-- [3d-visualization-hub](https://github.com/Flickerflash/3d-visualization-hub) — governance score visualization
+- [DGAF-Framework](https://github.com/ndrorchestration/DGAF-Framework) — governance spine
+- [resumeapex-eval](https://github.com/ndrorchestration/resumeapex-eval) — flagship Goldcanstaytoday benchmark (consumes Junior Apogee eval outputs)
+- [Driftwatch](https://github.com/ndrorchestration/Driftwatch) — real-time drift detection on Junior Apogee output streams
+- [sentinel-governance](https://github.com/ndrorchestration/sentinel-governance) — CI/CD integrity enforcement
+- [Amethyst-Governance-Eval-Stack](https://github.com/ndrorchestration/Amethyst-Governance-Eval-Stack) — meta-orchestration eval layer
+- [Gold-star-standards](https://github.com/ndrorchestration/Gold-star-standards) — certification rubrics this platform implements
+- [3d-visualization-hub](https://github.com/ndrorchestration/3d-visualization-hub) — governance score visualization
 
 ---
 
@@ -116,5 +116,5 @@ Apache 2.0 — see [LICENSE](LICENSE) for details.
 
 ## Provenance
 
-Developed by [Ndr "Ender" Hensel](https://github.com/Flickerflash) — AI Orchestration Engineer & Systems Architect, Columbus OH.  
-[Portfolio](https://flickerflash.vercel.app/) · [LinkedIn](https://www.linkedin.com/in/andrewhensel) · [GitHub](https://github.com/Flickerflash)
+Developed by [Ndr "Ender" Hensel](https://github.com/ndrorchestration) — AI Orchestration Engineer & Systems Architect, Columbus OH.  
+[LinkedIn](https://www.linkedin.com/in/andrewhensel) · [GitHub](https://github.com/ndrorchestration)
