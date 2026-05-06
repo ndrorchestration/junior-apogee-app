@@ -1,20 +1,39 @@
-# Contributing
+# Contributing to Junior Apogee App
 
-> **Governance:** DGAF / Agent Apogee — All changes to this repository are subject to Sentinel CI/CD integrity enforcement. Contributions must pass governance checks before merge. See [DGAF-Framework](https://github.com/Flickerflash/DGAF-Framework) for spine documentation.
+## Governance
 
-## Scope
-This repository is the Junior Apogee evaluation and QA workbench — Flask dashboard, layered evaluation logic, governance checks, and reporting scripts for multi-agent system assessment.
+This platform is part of the **PhiLattice / PDMAL** ecosystem, meta-orchestrated by **Agent Amethyst** and governed under the [DGAF Framework](https://github.com/ndrorchestration/DGAF-Framework). QA standards are owned by **Agent Apogee** (L4 QA Orchestrator).
 
-## Development
-- Keep changes small and reviewable.
-- Prefer explicit configuration over hidden defaults.
-- Run `python -m pytest tests -v` before pushing evaluation logic changes.
-- Validate config YAML files in `config/` before committing.
+## What This Platform Does
 
-## Architecture Changes
-- New evaluation layers must include unit tests and a corresponding config entry.
-- OWASP Agentic Top 10 compliance checks must not be removed or bypassed.
+- Multi-agent scoring with OWASP Agentic Top 10 compliance checks
+- Automated test execution and real-time QA dashboards
+- DGAF-certified evaluation tiers: Bronze / Silver / Gold / Autodiagnostic
+- MDAR (Multi-Dimensional Agent Rubric) protocol
+- Reciprocity verification and Sentinel safety layer
 
-## Pull Requests
-- Explain which evaluation layer or governance check is affected.
-- Note whether the change affects scoring logic, dashboard routes, or reporting output.
+## Standards & Attribution
+
+- **OWASP Agentic Top 10** — Security compliance framework
+- **NIST AI RMF** — Risk management alignment
+- **DGAF 11Q Framework** — 11-question deployment gate
+- **S-TIER Certification** — 97% confidence, zero-hallucination threshold
+- **OpenTelemetry OTel v1.41.0+** — Observability
+
+## IP Notice
+
+Core constraint optimization algorithms and phi constants are **not included**. Architecture, evaluation logic, and benchmark tooling only.
+
+## How to Contribute
+
+1. Open an issue with a clear problem statement and reproduction steps
+2. Fork and branch from `main`
+3. All scoring rubric changes require an Apogee QA review pass (see [gold-star-qa-framework](https://github.com/ndrorchestration/gold-star-qa-framework))
+4. Submit PR with test evidence and DGAF pattern reference
+
+## Cross-References
+
+- [DGAF-Framework](https://github.com/ndrorchestration/DGAF-Framework) — Governance protocols
+- [resumeapex-eval](https://github.com/ndrorchestration/resumeapex-eval) — Benchmark dataset
+- [sentinel-governance](https://github.com/ndrorchestration/sentinel-governance) — CI/CD integrity checks
+- [ai-governance-frameworks](https://github.com/ndrorchestration/ai-governance-frameworks) — Standards alignment
