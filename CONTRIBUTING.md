@@ -1,39 +1,40 @@
 # Contributing to Junior Apogee App
 
-## Governance
+## Governance and evidence boundary
 
-This platform is part of the **PhiLattice / PDMAL** ecosystem, meta-orchestrated by **Agent Amethyst** and governed under the [DGAF Framework](https://github.com/ndrorchestration/DGAF-Framework). QA standards are owned by **Agent Apogee** (L4 QA Orchestrator).
+Junior Apogee App is an experimental evaluation/QA application in the ndrorchestration ecosystem. Project-local tiers, rubrics, attestations, and DGAF terminology do not constitute external certification, accreditation, compliance, or production-readiness claims.
 
 ## What This Platform Does
 
-- Multi-agent scoring with OWASP Agentic Top 10 compliance checks
-- Automated test execution and real-time QA dashboards
-- DGAF-certified evaluation tiers: Bronze / Silver / Gold / Autodiagnostic
-- MDAR (Multi-Dimensional Agent Rubric) protocol
-- Reciprocity verification and Sentinel safety layer
+- Multi-agent evaluation and scoring workflows
+- Automated test execution and QA dashboard components
+- Project-local MDAR and reciprocity evaluation protocols
+- Sentinel-related safety/integrity checks where implemented
+
+Any reported score or tier must be tied to the exact evaluated artifact, test/evaluation procedure, and dated evidence. A project-local score is not an external certification.
 
 ## Standards & Attribution
 
-- **OWASP Agentic Top 10** — Security compliance framework
-- **NIST AI RMF** — Risk management alignment
-- **DGAF 11Q Framework** — 11-question deployment gate
-- **S-TIER Certification** — 97% confidence, zero-hallucination threshold
-- **OpenTelemetry OTel v1.41.0+** — Observability
+- **OWASP Agentic Top 10** — security reference/alignment
+- **NIST AI RMF** — risk-management reference/alignment
+- **DGAF Framework** — related project-local governance/evaluation research
+- **OpenTelemetry** — observability reference where implemented
 
-## IP Notice
-
-Core constraint optimization algorithms and phi constants are **not included**. Architecture, evaluation logic, and benchmark tooling only.
+External framework references should be treated as mappings/comparisons unless independently validated by the relevant authority.
 
 ## How to Contribute
 
-1. Open an issue with a clear problem statement and reproduction steps
-2. Fork and branch from `main`
-3. All scoring rubric changes require an Apogee QA review pass (see [gold-star-qa-framework](https://github.com/ndrorchestration/gold-star-qa-framework))
-4. Submit PR with test evidence and DGAF pattern reference
+1. Open an issue with a clear problem statement and reproduction steps.
+2. Fork and branch from `main`.
+3. Changes to scoring or evaluation logic should include corresponding tests and rubric/specification updates.
+4. Submit reproducible evidence for any behavior or metric claim.
+5. Do not describe a project-local tier, pass, attestation, or score as externally certified or production-ready without the required independent evidence.
 
 ## Cross-References
 
-- [DGAF-Framework](https://github.com/ndrorchestration/DGAF-Framework) — Governance protocols
-- [resumeapex-eval](https://github.com/ndrorchestration/resumeapex-eval) — Benchmark dataset
-- [sentinel-governance](https://github.com/ndrorchestration/sentinel-governance) — CI/CD integrity checks
-- [ai-governance-frameworks](https://github.com/ndrorchestration/ai-governance-frameworks) — Standards alignment
+- [DGAF-Framework](https://github.com/ndrorchestration/DGAF-Framework) — related governance/evaluation research
+- [resumeapex-eval](https://github.com/ndrorchestration/resumeapex-eval) — related benchmark/evaluation track
+- [sentinel-governance](https://github.com/ndrorchestration/sentinel-governance) — related integrity automation
+- [ai-governance-frameworks](https://github.com/ndrorchestration/ai-governance-frameworks) — standards reference/alignment
+
+Cross-references describe intended relationships; they do not establish mutual validation.
