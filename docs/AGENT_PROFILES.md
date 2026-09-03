@@ -1,134 +1,119 @@
 # Agent Profiles
 
-<<<<<<< Updated upstream
+> **Epistemic status:** Project-local agent role descriptions and target parameters. Numeric values below are design targets, not observed benchmark results or external certification evidence unless separately linked to a reproducible evaluation record.
+
 ## Overview
 
-Five specialized AI agents, each optimised for distinct roles within the
-Apogee agentic platform. All run on `claude-3-5-sonnet` at `temperature=0.0`
-unless noted.
+Five specialized agent roles are described for the Junior Apogee application. Runtime model configuration may change; this document should not be treated as proof that a specific model/version remains active.
 
 ---
 
 ## Apogee
 
-**Role**: Primary orchestration agent  
-**Tags**: `orchestrator`, `reasoning`, `tools`, `governance`, `archival`
+**Role:** Primary orchestration agent  
+**Tags:** `orchestrator`, `reasoning`, `tools`, `governance`, `archival`
 
-The flagship agent. Handles complex multi-step reasoning, tool coordination,
-and end-to-end task execution. Highest accuracy targets across all three eval
-layers. Acts as the hub in multi-agent workflows.
+Coordinates complex multi-step tasks, tool use, and end-to-end execution within the application.
 
 | Metric | Target |
-|--------|--------|
+|---|---:|
 | Task Success | 95% |
 | Faithfulness | 98% |
 | Tool Accuracy | 99% |
 | Ethics/Rights | 100% |
 | Archival | 100% |
 
-**Key Capabilities**: chain-of-thought, plan generation, web search, code execution, file I/O, API calling, data analysis, ethics gate, rights gate, audit trail, citation tagging, provenance chain.
+**Capabilities:** Project-defined reasoning/orchestration, tool coordination, audit/provenance handling, and review routing.
 
 ---
 
 ## Prodigy
 
-**Role**: Research and synthesis agent  
-**Tags**: `research`, `synthesis`, `faithfulness`
+**Role:** Research and synthesis agent  
+**Tags:** `research`, `synthesis`, `faithfulness`
 
-Excels at information retrieval, knowledge synthesis, and generating
-high-fidelity written artifacts. Holds a perfect faithfulness target — every
-claim must be traceable to a source.
+Supports information retrieval, knowledge synthesis, and source-traceable written output.
 
 | Metric | Target |
-|--------|--------|
+|---|---:|
 | Task Success | 92% |
-| Faithfulness | **100%** |
+| Faithfulness | 100% |
 | Tool Accuracy | 98% |
 | Ethics/Rights | 100% |
 | Archival | N/A |
 
-**Key Capabilities**: web search, literature review, multi-document summarization, ethics gate, rights gate.
+**Capabilities:** Research, literature/document synthesis, source handling, and review support.
 
 ---
 
 ## Reciprocity
 
-**Role**: Collaboration and negotiation agent  
-**Tags**: `collaboration`, `routing`, `multi-agent`, `archival`
+**Role:** Collaboration and negotiation agent  
+**Tags:** `collaboration`, `routing`, `multi-agent`, `archival`
 
-Manages multi-agent workflows, resource allocation, and inter-agent
-communication protocols. Optimised for fairness, conflict resolution, and
-seamless task handoffs.
+Supports multi-agent coordination, routing, resource allocation, and conflict-resolution workflows.
 
 | Metric | Target |
-|--------|--------|
+|---|---:|
 | Task Success | 88% |
 | Faithfulness | 95% |
 | Tool Accuracy | 90% |
 | Ethics/Rights | 99% |
 | Archival | 98% |
 
-**Key Capabilities**: agent routing, conflict resolution, task delegation, provenance chain, archival format.
+**Capabilities:** Routing, delegation, coordination, provenance handling, and workflow handoffs.
 
 ---
 
 ## COLLEEN
 
-**Role**: Compliance, Legal, Operations, Evaluation, Ethics & Notifications  
-**Tags**: `compliance`, `governance`, `ethics`, `notifications`, `archival`
+**Role:** Compliance, legal, operations, evaluation, ethics, and notification support  
+**Tags:** `compliance`, `governance`, `ethics`, `notifications`, `archival`
 
-The platform's governance enforcer. Runs OWASP Agentic Top-10 checks,
-regulatory compliance reviews (GDPR, CCPA), and dispatches compliance alerts.
-Never compromises on ethics or rights.
+Provides project-local compliance and governance checks and routes relevant alerts or review tasks.
 
 | Metric | Target |
-|--------|--------|
+|---|---:|
 | Task Success | 91% |
 | Faithfulness | 90% |
 | Tool Accuracy | 99% |
 | Ethics/Rights | 99% |
-| Archival | **100%** |
+| Archival | 100% |
 
-**Key Capabilities**: OWASP scan, regulatory check, notification dispatch, audit trail, citation tagging.
+**Capabilities:** Project-defined compliance checks, notification handling, audit/provenance support, and review routing.
 
 ---
 
 ## DemiJoule
 
-**Role**: Uncertainty-aware escalation agent  
-**Tags**: `escalation`, `uncertainty`, `hitl`, `drift`
+**Role:** Uncertainty-aware escalation agent  
+**Tags:** `escalation`, `uncertainty`, `hitl`, `drift`
 
-Monitors agent confidence levels and routes ambiguous or high-risk situations
-to Human-in-the-Loop (HITL) review. Also performs real-time drift detection
-across platform metrics.
+Supports uncertainty handling, risk escalation, Human-in-the-Loop routing, and drift-related review.
 
 | Metric | Target |
-|--------|--------|
+|---|---:|
 | Task Success | N/A |
 | Faithfulness | 97% |
 | Tool Accuracy | N/A |
-| Ethics/Rights | **100%** |
+| Ethics/Rights | 100% |
 | Archival | 99% |
 
-**Key Capabilities**: confidence scoring, risk assessment, HITL handoff, drift detection, self-escalation.
+**Capabilities:** Confidence/risk scoring, escalation, HITL routing, and drift-review support.
 
 ---
 
 ## Inter-Agent Collaboration
 
-```
+```text
 User Query
     │
     ▼
   Apogee (orchestrator)
   ├─► Prodigy     (research sub-tasks)
-  ├─► COLLEEN     (compliance checks)
-  ├─► Reciprocity (multi-agent coordination)
+  ├─► COLLEEN     (compliance/review checks)
+  ├─► Reciprocity (coordination)
   └─► DemiJoule  (escalation / HITL routing)
 ```
 
-Reciprocity can also coordinate all agents independently for complex
-multi-agent workflows where no single orchestrator is appropriate.
-=======
-Information about each agent's capabilities, configuration options, and roles.
->>>>>>> Stashed changes
+These relationships describe the intended application architecture. They do not establish autonomous capability, production readiness, certification, or measured performance beyond the evidence linked by the repository.

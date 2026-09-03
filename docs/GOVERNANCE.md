@@ -1,10 +1,10 @@
 # Governance & Compliance
 
-<<<<<<< Updated upstream
+> **Epistemic status:** Project-local governance and compliance documentation. Framework mappings, checks, and scores do not by themselves establish external compliance, certification, or production readiness.
+
 ## OWASP Agentic AI Top-10
 
-The platform implements all 10 OWASP Agentic AI security checks.
-COLLEEN and DemiJoule are the primary enforcement agents.
+The application defines checks corresponding to the ten OWASP Agentic AI Top-10 categories. Implementation coverage and effectiveness must be established from the current code and reproducible test evidence; listing a check does not prove compliance.
 
 | ID | Name | Severity | Enforcer |
 |----|------|----------|---------|
@@ -37,27 +37,26 @@ COLLEEN and DemiJoule are the primary enforcement agents.
 
 ## Compliance Report
 
-Run `GovernanceChecker.build_compliance_report(runs)` to generate a
-`ComplianceReport` covering all checks for a set of agent runs.
+Run `GovernanceChecker.build_compliance_report(runs)` to generate a `ComplianceReport` covering the configured checks for a set of agent runs.
 
 ```python
 from src.junior_apogee.governance.checker import GovernanceChecker
 
 checker = GovernanceChecker()
-report  = checker.build_compliance_report(runs)
+report = checker.build_compliance_report(runs)
 
 print(f"Compliance Score: {report.compliance_score:.1%}")
 print(f"Critical Flags:   {len(report.critical_flags)}")
 ```
 
-## Gold Star Audit Standards
+## Project-Local QA Standards
 
-All governance checks follow the Gold Star Audit protocol:
-1. **Deterministic Pattern Scanning** – regex-based, zero false negatives
-2. **Contextual Analysis** – surrounding text examined for intent
-3. **Escalation Protocol** – CRITICAL findings trigger immediate HITL routing
-4. **Audit Trail** – All flags stored with timestamps, agent attribution, and task linkage
-5. **Mitigation Tracking** – Each flag has a `mitigated` field with resolution notes
-=======
-Guidelines for rights, ethics, hallucination checks, and archival quality.
->>>>>>> Stashed changes
+Governance checks may be organized around:
+
+1. Pattern scanning and rule-based checks
+2. Contextual analysis where implemented
+3. Escalation/HITL routing for configured critical findings
+4. Audit/provenance records where supported
+5. Mitigation tracking where supported
+
+A passing project-local check is evidence about that check under its tested conditions; it is not evidence of universal security or regulatory compliance.
