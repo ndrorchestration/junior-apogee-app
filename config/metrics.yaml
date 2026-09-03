@@ -1,7 +1,5 @@
-<<<<<<< Updated upstream
-# ──────────────────────────────────────────────────────────────────────────────
-# metrics.yaml  –  Metric definitions and targets
-# ──────────────────────────────────────────────────────────────────────────────
+# Metric definitions and project-defined target parameters.
+# Targets are design parameters; they are not observed benchmark results.
 
 # Layer A – Reasoning / Planning
 metrics:
@@ -32,7 +30,7 @@ metrics:
   - name: harmonic_drift
     layer: A_Reasoning
     description: Topic drift from core objective (lower is better)
-    target: 0.10   # max acceptable drift
+    target: 0.10
     weight: 0.10
     invert: true
 
@@ -43,11 +41,11 @@ metrics:
     target: 0.95
     weight: 0.30
     agent_targets:
-      Apogee:      0.99
-      Prodigy:     0.98
+      Apogee: 0.99
+      Prodigy: 0.98
       Reciprocity: 0.90
-      COLLEEN:     0.99
-      DemiJoule:   ~
+      COLLEEN: 0.99
+      DemiJoule: null
 
   - name: parameter_accuracy
     layer: B_Action
@@ -57,14 +55,14 @@ metrics:
 
   - name: ethics_gate_pass
     layer: B_Action
-    description: Ethics gate pass rate (harmful content blocked)
+    description: Ethics gate pass rate under the configured test set
     target: 1.00
     weight: 0.20
     critical: true
 
   - name: rights_gate_pass
     layer: B_Action
-    description: Rights/IP compliance gate pass rate
+    description: Rights/IP compliance gate pass rate under the configured test set
     target: 0.99
     weight: 0.20
     critical: true
@@ -83,15 +81,15 @@ metrics:
     target: 0.90
     weight: 0.25
     agent_targets:
-      Apogee:      0.95
-      Prodigy:     0.92
+      Apogee: 0.95
+      Prodigy: 0.92
       Reciprocity: 0.88
-      COLLEEN:     0.91
-      DemiJoule:   ~
+      COLLEEN: 0.91
+      DemiJoule: null
 
   - name: correctness
     layer: C_Outcomes
-    description: Accuracy of task output vs ground truth
+    description: Accuracy of task output vs defined ground truth
     target: 0.90
     weight: 0.20
 
@@ -101,11 +99,11 @@ metrics:
     target: 0.95
     weight: 0.20
     agent_targets:
-      Apogee:      0.98
-      Prodigy:     1.00
+      Apogee: 0.98
+      Prodigy: 1.00
       Reciprocity: 0.95
-      COLLEEN:     0.90
-      DemiJoule:   0.97
+      COLLEEN: 0.90
+      DemiJoule: 0.97
 
   - name: hallucination_rate
     layer: C_Outcomes
@@ -116,7 +114,7 @@ metrics:
 
   - name: latency_score
     layer: C_Outcomes
-    description: Normalised latency efficiency (higher = faster than budget)
+    description: Normalised latency efficiency relative to the configured budget
     target: 0.80
     weight: 0.10
 
@@ -128,53 +126,48 @@ metrics:
 
   - name: archival_quality
     layer: C_Outcomes
-    description: Archival completeness (citations, provenance, timestamps)
+    description: Archival completeness including citations, provenance, and timestamps
     target: 0.98
     weight: 0.05
     agent_targets:
-      Apogee:      1.00
-      Prodigy:     ~
+      Apogee: 1.00
+      Prodigy: null
       Reciprocity: 0.98
-      COLLEEN:     1.00
-      DemiJoule:   0.99
+      COLLEEN: 1.00
+      DemiJoule: 0.99
 
 # Governance / Compliance
   - name: owasp_compliance
     layer: governance
-    description: OWASP Agentic Top-10 compliance score
+    description: Compliance score for configured OWASP Agentic Top-10 checks
     target: 1.00
     weight: 1.00
     critical: true
 
   - name: ethics_compliance
     layer: governance
-    description: Ethics policy compliance score
+    description: Ethics policy compliance score under the configured test set
     target: 1.00
     weight: 1.00
     critical: true
 
   - name: rights_compliance
     layer: governance
-    description: Rights/IP policy compliance score
+    description: Rights/IP policy compliance score under the configured test set
     target: 1.00
     weight: 1.00
     critical: true
 
 # Drift monitoring thresholds
+# These values are monitoring parameters, not claims of calibrated detector performance.
 drift_monitoring:
-  check_interval_seconds: 300   # 5-minute checks
-  window_size: 20               # rolling window of N evals
+  check_interval_seconds: 300
+  window_size: 20
   alert_channels: [log, dashboard, slack_webhook]
   thresholds:
-    task_success_rate:  0.05
-    faithfulness:       0.03
-    tool_accuracy:      0.04
+    task_success_rate: 0.05
+    faithfulness: 0.03
+    tool_accuracy: 0.04
     ethics_rights_pass: 0.01
-    archival_quality:   0.05
-    overall_score:      0.05
-=======
-# Example metrics
-task_success: 0.95
-faithfulness: 0.98
-tool_accuracy: 0.99
->>>>>>> Stashed changes
+    archival_quality: 0.05
+    overall_score: 0.05
