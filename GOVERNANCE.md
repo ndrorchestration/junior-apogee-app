@@ -1,34 +1,50 @@
-# Governance Declaration
+# Governance and Evidence Boundary
 
-**Governing framework:** DGAF-Framework ([ndrorchestration/DGAF-Framework](https://github.com/ndrorchestration/DGAF-Framework))  
-**DGAF version:** v1.0.0-anchor (post-S070-r3)  
-**Protocol anchor:** [GOVERNANCE_CONSTITUTION.md](https://github.com/ndrorchestration/DGAF-Framework/blob/main/docs/GOVERNANCE_CONSTITUTION.md) · SHA `5a1feb796604970344cd93d972534928de141e0f`  
-**Governing agent:** Agent Amethyst (meta-orchestrator)  
-**Institutional anchor:** COLLEEN  
-**φ attractor:** 1.61818  
-**Harmonic baseline:** Ionian (drift threshold: θ = 0.009)  
-**STRUCT-QA-001:** https://github.com/ndrorchestration/DGAF-Framework/issues/36  
-**Filed:** 2026-07-03 · DA-02 closure · Recursive Audit 2026-07-03  
+> **Current-use rule:** Junior Apogee is an experimental evaluation/QA workbench with repository-local governance checks. Historical DGAF protocol numbers, agent-role labels, harmonic parameters, and July 2026 governance anchors are provenance/context only unless the current `DGAF-Framework` record explicitly re-establishes them for a present-tense claim.
+
+## Repository scope
+
+Junior Apogee implements local evaluation workflows, governance-related checks, reporting, and a QA/dashboard surface. It does **not** independently govern DGAF, certify external systems, or establish DGAF/PDMAL scientific or experiment-authorization state.
+
+Current repository evidence is owned by this repository's source, tests, CI, configuration, and exact deployment/runtime evidence when available.
+
+## Relationship to DGAF
+
+`DGAF` means **Dynamic Governance Agentic Formation**. `DGAF-Framework` is a related but separate governance/evidence research track.
+
+When a current Junior Apogee claim depends on DGAF state, resolve that claim against the current exact DGAF source. Historical references such as `v1.0.0-anchor`, `S070`, STRUCT-QA issue numbers, P-xx protocol labels, or named agent roles do not transfer current authority by inheritance.
+
+## Project-local governance terms
+
+Names such as `Apogee`, `Amethyst`, `Sentinel`, `Gold Star`, `S-Tier`, `A-Tier`, or historical P-xx gates may be used as architectural or provenance vocabulary. Their appearance does not independently establish autonomous agent authority, external certification, compliance, or production readiness.
+
+A repository-local gate is blocking only when current executable logic or repository policy actually enforces it. Documentation alone cannot make a gate mechanically blocking.
+
+## Personal-data boundary
+
+Real personal resumes, CVs, application documents, identity records, private employer correspondence, and other sensitive career artifacts must **not** be committed to this repository as source, fixtures, reports, or examples.
+
+Use synthetic or deliberately sanitized evaluation inputs for repository tests and examples. This privacy rule is about sensitive content, not filename substrings: the repository name, code identifiers, benchmark labels, or documentation may legitimately contain words such as `resume` or `ResumeApex`.
+
+If sensitive material is accidentally committed:
+
+1. treat it as an exposure;
+2. remove it from the active tree and history where appropriate;
+3. rotate any exposed credentials;
+4. document the incident without republishing the sensitive content.
+
+## Evidence rule
+
+- a configuration/protocol description is **DEFINED**;
+- executable behavior is **IMPLEMENTED**;
+- a green CI run proves only the checks executed on the bound revision;
+- repository-local evaluation results do not establish external certification, compliance, production security, or general model efficacy;
+- cross-repository references do not constitute mutual validation.
+
+## Historical governance record
+
+Earlier versions of this file recorded a July 3, 2026 DGAF anchor, named agent authorities, harmonic constants, and historical P-xx protocol assignments. Those statements are retained in Git history as event-time provenance and must not be interpreted as the current ecosystem control plane.
 
 ---
 
-## Scope
-
-Junior Apogee App is the junior-tier quality gate surface for the DGAF eval stack. This repo governs attestation output surfaces, S-Tier and A-Tier evaluation workflows, and the public-facing QA dashboard components that validate governance claims against the P-11 11Q Attestation Scoring rubric.
-
-## Applicable Protocols
-
-- **P-11** 11Q Attestation Scoring (BLOCKING) — primary quality gate
-- **P-30** Apogee-Attestation-Gate (BLOCKING) — canonical promotion gate
-- **P-29** Sentinel-Annotated Risk Pass (BLOCKING) — safety hook
-- **P-03** Governance Contract Test (BLOCKING) — CI gate
-- **P-05** Tri-Phase CI Gate (ADVISORY/BLOCKING in CI)
-- **NDR-133** Personal Document Firewall (BLOCKING-ABSOLUTE)
-
-## Audit Trail
-
-- Filed: 2026-07-03 · STRUCT-QA-001 Gap 1 · Amethyst × COLLEEN
-- Parent issue: https://github.com/ndrorchestration/DGAF-Framework/issues/36
-- Constitutional authority: GOVERNANCE_CONSTITUTION.md Part V, T2-01
-- Registry watermark at filing: P-41 (S071)
-- Stasis window: EXPIRED (2026-07-13)
+*Current repository governance/evidence boundary reconciled 2026-09-10.*
