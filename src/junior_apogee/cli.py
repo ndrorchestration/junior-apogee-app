@@ -21,7 +21,7 @@ def build_info() -> dict[str, object]:
 
 
 def main(argv: Sequence[str] | None = None) -> int:
-    parser = argparse.ArgumentParser(description="Junior Apogee CLI")
+    parser = argparse.ArgumentParser(description="AI Evaluation Workbench CLI")
     parser.add_argument(
         "command",
         nargs="?",
