@@ -44,7 +44,7 @@ def _candidate_config_dirs() -> list[Path]:
         candidates.append(Path(configured_dir).expanduser())
 
     package_dir = Path(__file__).resolve().parent
-    repo_root = package_dir.parents[2]
+    repo_root = package_dir.parents[1]
 
     candidates.extend(
         [
