@@ -8,8 +8,9 @@ from __future__ import annotations
 from datetime import datetime
 from enum import Enum
 from typing import TYPE_CHECKING, Any, Dict, List, Optional, Union
-from pydantic import BaseModel, Field, field_validator
 import uuid
+
+from pydantic import BaseModel, Field, field_validator
 
 if TYPE_CHECKING:
     from .roles import AgentRole
@@ -171,6 +172,13 @@ class TaskResult(BaseModel):
     created_at: datetime = Field(default_factory=datetime.utcnow)
 
     @property
+    def role(self) -> "AgentRole":
+        """Functional role derived from the event-time actor identity."""
+        from .roles import role_for_agent_name
+
+        return role_for_agent_name(self.agent)
+
+    @property
     def passed(self) -> bool:
         return self.status == TaskStatus.PASSED
 
@@ -275,6 +283,13 @@ class EvalResult(BaseModel):
     notes: str = ""
 
     @property
+    def role(self) -> "AgentRole":
+        """Functional role derived from the event-time actor identity."""
+        from .roles import role_for_agent_name
+
+        return role_for_agent_name(self.agent)
+
+    @property
     def overall_score(self) -> float:
         scores = []
         if self.reasoning:
@@ -308,6 +323,13 @@ class GovernanceFlag(BaseModel):
     mitigated: bool = False
     mitigation_notes: str = ""
     raised_at: datetime = Field(default_factory=datetime.utcnow)
+
+    @property
+    def role(self) -> Optional["AgentRole"]:
+        """Functional role when this flag is attributable to a legacy actor."""
+        from .roles import role_for_agent_name
+
+        return role_for_agent_name(self.agent) if self.agent is not None else None
 
 
 class ComplianceReport(BaseModel):
@@ -347,6 +369,13 @@ class AgentSummary(BaseModel):
     avg_cost_usd: float = 0.0
     last_updated: datetime = Field(default_factory=datetime.utcnow)
 
+    @property
+    def role(self) -> "AgentRole":
+        """Functional role derived from the preserved actor identity."""
+        from .roles import role_for_agent_name
+
+        return role_for_agent_name(self.agent)
+
 
 class DriftAlert(BaseModel):
     alert_id: str = Field(default_factory=lambda: str(uuid.uuid4()))
@@ -359,6 +388,13 @@ class DriftAlert(BaseModel):
     severity: SeverityLevel
     message: str
     detected_at: datetime = Field(default_factory=datetime.utcnow)
+
+    @property
+    def role(self) -> "AgentRole":
+        """Functional role derived from the preserved actor identity."""
+        from .roles import role_for_agent_name
+
+        return role_for_agent_name(self.agent)
 
 
 class DashboardSnapshot(BaseModel):
