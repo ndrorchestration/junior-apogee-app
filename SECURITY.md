@@ -10,7 +10,7 @@ No response-time SLA is promised by this document.
 
 ## Current security boundary
 
-Junior Apogee is an experimental evaluation/QA workbench. Local governance checks, tests, linting, packaging, container builds, or security scanners do not independently establish production security, external compliance, or certification.
+This project is an experimental evaluation/QA workbench. Local governance checks, tests, linting, packaging, container builds, or security scanners do not independently establish production security, external compliance, or certification.
 
 Provider credentials such as `OPENAI_API_KEY`, `ANTHROPIC_API_KEY`, and application API keys must remain runtime secrets. `.env.example` contains names/placeholders only; real values must not be committed.
 
