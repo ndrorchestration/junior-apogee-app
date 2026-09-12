@@ -336,9 +336,12 @@ def api_compliance() -> Response:
 @app.route("/api/v1/evaluate", methods=["POST"])
 def api_evaluate() -> tuple[Response, int] | Response:
     data = request.get_json(silent=True) or {}
-    agent_name = data.get("agent", "Apogee")
+    agent_name = data.get("agent")
     output = data.get("output", "")
     tool_calls = data.get("tool_calls", [])
+
+    if not agent_name:
+        return jsonify({"error": "Missing required actor identity: agent"}), 400
 
     try:
         agent = AgentName(agent_name)
