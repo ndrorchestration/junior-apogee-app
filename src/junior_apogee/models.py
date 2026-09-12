@@ -1,5 +1,5 @@
 """
-Core Pydantic models for the Junior Apogee evaluation platform.
+Core Pydantic models for the AI Evaluation Workbench.
 Covers agents, tasks, evaluation results, metrics, and governance.
 """
 
@@ -17,7 +17,8 @@ import uuid
 # ─────────────────────────────────────────────
 
 class AgentName(str, Enum):
-    APOGEE      = "Apogee"
+    # Compatibility-only member key; current display/serialized role is functional.
+    APOGEE      = "Evaluation Orchestrator"
     PRODIGY     = "Prodigy"
     RECIPROCITY = "Reciprocity"
     COLLEEN     = "COLLEEN"
