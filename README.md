@@ -1,4 +1,4 @@
-# Junior Apogee App
+# AI Evaluation Workbench — Working Title
 
 ![Status](https://img.shields.io/badge/Status-Experimental-blue)
 ![Language](https://img.shields.io/badge/Language-Python-blue)
@@ -6,20 +6,26 @@
 
 > **Epistemic status:** Experimental evaluation and QA workbench. The repository implements local evaluation workflows and governance-related checks; it does not by itself establish external certification, compliance, or production readiness.
 
-Junior Apogee is an evaluation and QA workbench for multi-agent AI systems. It includes a Flask dashboard, layered evaluation logic, governance checks, and reporting scripts for local experimentation.
+This project is an evidence-native evaluation and QA workbench for AI and multi-agent systems. It includes a Flask dashboard, layered evaluation logic, governance-related checks, reporting scripts, and local experimentation workflows.
+
+## Naming status
+
+The former product and agent proper-name family is **deprecated for current use**. Those names may still appear in the repository slug, Python package/import paths, historical records, compatibility shims, immutable evidence, and migration documentation until a final product brand and technical migration are completed.
+
+Do not use the retired proper name as a current product, agent, persona, authority, or marketing identity. Preserve useful former persona/role characteristics only as functional responsibilities such as verification, evidence governance, bounded scoring, provenance review, integrity checks, and escalation support.
 
 ## Scope and boundaries
 
-The active implementation lives in `src/junior_apogee/`, with the dashboard entry point at the repository root in `app.py`.
+The active implementation lives in `src/junior_apogee/`, with the dashboard entry point at the repository root in `app.py`. The existing package path is a temporary compatibility identifier, not the current product name.
 
-The top-level `junior_apogee_app/` package remains for older examples and tests; new work should target the `src/` implementation.
+The top-level `junior_apogee_app/` package remains for older examples and tests; new work should target the `src/` implementation until the final technical rename is planned and executed.
 
-Repository-level governance terminology such as DGAF, Agent Apogee, Gold Star, or Amethyst describes project architecture and workflow relationships. It should not be read as independent certification authority or external endorsement.
+Historical DGAF protocol numbers, retired agent-role labels, harmonic parameters, and prior governance anchors are provenance/context only unless a current canonical record explicitly re-establishes them for a present-tense claim.
 
 ## What Is In This Repo
 
 - `app.py` — dashboard backend and demo API routes
-- `src/junior_apogee/` — models, evaluation engine, governance, metrics, config
+- `src/junior_apogee/` — current implementation package; legacy technical identifier pending final rename
 - `config/` — YAML definitions for agents, metrics, and task families
 - `scripts/run_eval.py` — pytest wrapper for running subsets of the suite
 - `scripts/generate_report.py` — synthetic report generator
@@ -62,6 +68,8 @@ python scripts/generate_report.py --tasks 5 --output reports/report.json
 python -m junior_apogee info
 ```
 
+The package command above is retained temporarily for compatibility and does not represent the current product name.
+
 ## Configuration
 
 - Copy `.env.example` to `.env` for local environment variables.
@@ -77,7 +85,7 @@ docker build -t junior-apogee-app .
 docker run -p 5000:5000 junior-apogee-app
 ```
 
-There is currently no `docker-compose.yml` in the repository.
+The image tag above is a temporary compatibility identifier. There is currently no `docker-compose.yml` in the repository.
 
 ## Related Ecosystem
 
