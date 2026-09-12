@@ -1,4 +1,4 @@
-# Changelog — Junior Apogee App
+# Changelog — AI Evaluation Workbench
 
 All notable changes to this project are documented here.
 Format follows [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
@@ -7,6 +7,11 @@ Versioning follows [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 ---
 
 ## [Unreleased]
+
+### Changed
+- Retired the former product/agent proper-name family from current-facing use.
+- Preserved verification, evidence-governance, orchestration, scoring, provenance, integrity, and escalation capabilities under functional role names.
+- Legacy repository/package/import/CLI identifiers remain compatibility-only pending final brand selection and a dedicated technical migration.
 
 ---
 
@@ -28,4 +33,4 @@ Versioning follows [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ---
 
-_Maintained by ndrorchestration. Historical changelog attribution retained for provenance; current repository documentation treats DGAF and Agent Amethyst as project-local related terminology, not external certification or governance authority._
+_Maintained by ndrorchestration. Historical changelog attribution is retained for provenance; current repository documentation treats DGAF and Agent Amethyst as project-local related terminology, not external certification or governance authority._

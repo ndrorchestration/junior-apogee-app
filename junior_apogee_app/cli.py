@@ -9,7 +9,7 @@ from .persistence import save_result
 
 @click.group()
 def cli():
-    """Junior Apogee App command-line interface."""
+    """AI Evaluation Workbench command-line interface."""
     pass
 
 

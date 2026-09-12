@@ -1,9 +1,9 @@
-# Agent configuration registry for Junior Apogee
+# Agent configuration registry for the AI Evaluation Workbench
 # Numeric values in target_metrics are project-defined targets, not observed results.
 agents:
-  - name: Apogee
+  - name: Evaluation Orchestrator
     description: >
-      Primary orchestration agent. Handles complex multi-step reasoning,
+      Primary orchestration role. Handles complex multi-step reasoning,
       tool coordination, and end-to-end task execution.
     model_backend: claude-3-5-sonnet
     temperature: 0.0

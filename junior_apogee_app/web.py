@@ -38,7 +38,7 @@ def create_app() -> Flask:
     def openapi() -> Any:
         schema = {
             "openapi": "3.0.0",
-            "info": {"title": "Junior Apogee API", "version": "0.1.0"},
+            "info": {"title": "AI Evaluation Workbench API", "version": "0.1.0"},
             "paths": {
                 "/health": {"get": {"responses": {"200": {"description": "OK"}}}},
                 "/metrics": {"get": {"responses": {"200": {"description": "Metrics"}}}},
