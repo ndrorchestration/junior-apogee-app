@@ -41,7 +41,7 @@ metrics:
     target: 0.95
     weight: 0.30
     agent_targets:
-      Apogee: 0.99
+      Evaluation Orchestrator: 0.99
       Prodigy: 0.98
       Reciprocity: 0.90
       COLLEEN: 0.99
@@ -81,7 +81,7 @@ metrics:
     target: 0.90
     weight: 0.25
     agent_targets:
-      Apogee: 0.95
+      Evaluation Orchestrator: 0.95
       Prodigy: 0.92
       Reciprocity: 0.88
       COLLEEN: 0.91
@@ -99,7 +99,7 @@ metrics:
     target: 0.95
     weight: 0.20
     agent_targets:
-      Apogee: 0.98
+      Evaluation Orchestrator: 0.98
       Prodigy: 1.00
       Reciprocity: 0.95
       COLLEEN: 0.90
@@ -130,7 +130,7 @@ metrics:
     target: 0.98
     weight: 0.05
     agent_targets:
-      Apogee: 1.00
+      Evaluation Orchestrator: 1.00
       Prodigy: null
       Reciprocity: 0.98
       COLLEEN: 1.00
