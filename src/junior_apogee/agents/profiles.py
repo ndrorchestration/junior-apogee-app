@@ -1,6 +1,6 @@
 """
-Agent profiles for Apogee, Prodigy, Reciprocity, COLLEEN, and DemiJoule.
-Each profile defines capabilities, evaluation focus, and target metrics.
+Agent profiles for the Evaluation Orchestrator, Prodigy, Reciprocity, COLLEEN,
+and DemiJoule. Each profile defines capabilities, evaluation focus, and target metrics.
 """
 
 from __future__ import annotations
@@ -42,12 +42,13 @@ ARCHIVAL_CAPS = [
 
 # ─── Agent Profiles ───────────────────────────────────────────────────────────
 
+# Compatibility-only symbol; the active role is Evaluation Orchestrator.
 APOGEE = AgentConfig(
     name=AgentName.APOGEE,
     description=(
-        "Primary orchestration agent. Handles complex multi-step reasoning, "
+        "Primary orchestration role. Handles complex multi-step reasoning, "
         "tool coordination, and end-to-end task execution. "
-        "Highest accuracy targets across all three eval layers."
+        "Configured with the highest project-defined targets across all three eval layers."
     ),
     capabilities=REASONING_CAPS + TOOL_USE_CAPS + GOVERNANCE_CAPS + ARCHIVAL_CAPS,
     model_backend="claude-3-5-sonnet",
@@ -61,7 +62,7 @@ PRODIGY = AgentConfig(
     description=(
         "Research and synthesis agent. Excels at information retrieval, "
         "knowledge synthesis, and generating high-fidelity written artifacts. "
-        "Perfect faithfulness target."
+        "Configured with a project-defined faithfulness target."
     ),
     capabilities=REASONING_CAPS + [
         AgentCapability(name="web_search",       description="Real-time web retrieval"),
@@ -79,7 +80,7 @@ RECIPROCITY = AgentConfig(
     description=(
         "Collaboration and negotiation agent. Manages multi-agent workflows, "
         "resource allocation, and inter-agent communication protocols. "
-        "Optimised for fairness and cooperation metrics."
+        "Configured for fairness and cooperation evaluation dimensions."
     ),
     capabilities=REASONING_CAPS + TOOL_USE_CAPS + GOVERNANCE_CAPS + [
         AgentCapability(name="agent_routing",    description="Delegate tasks to specialist agents"),
@@ -95,7 +96,7 @@ COLLEEN = AgentConfig(
     name=AgentName.COLLEEN,
     description=(
         "Compliance, Legal, Operations, Evaluation, Ethics & Notifications agent. "
-        "Focused on governance, regulatory adherence, OWASP Agentic checks, "
+        "Focused on project-local governance checks, OWASP Agentic references, "
         "rights validation, and automated compliance notifications."
     ),
     capabilities=GOVERNANCE_CAPS + ARCHIVAL_CAPS + [
@@ -146,7 +147,7 @@ def list_agents() -> List[AgentConfig]:
     return list(ALL_AGENTS.values())
 
 
-# Target metric baselines (from README table)
+# Project-defined target metric baselines; these are not observed benchmark results.
 AGENT_BASELINES: Dict[AgentName, Dict[str, Optional[float]]] = {
     AgentName.APOGEE: {
         "task_success":   0.95,
