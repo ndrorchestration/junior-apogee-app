@@ -1,4 +1,4 @@
-"""Flask dashboard backend for Junior Apogee."""
+"""Flask dashboard backend for the AI Evaluation Workbench."""
 
 from __future__ import annotations
 
@@ -11,7 +11,7 @@ from flask import Flask, Response, jsonify, render_template, request
 from flask_cors import CORS
 from loguru import logger
 
-from src.junior_apogee.agents.profiles import AGENT_BASELINES
+from src.junior_apogee.agents.profiles import ROLE_BASELINES, ROLE_PROFILES
 from src.junior_apogee.config import DEBUG, FLASK_HOST, FLASK_PORT
 from src.junior_apogee.demo_data import make_run, make_task
 from src.junior_apogee.evaluation.engine import EvaluationEngine
@@ -26,6 +26,7 @@ from src.junior_apogee.models import (
     SeverityLevel,
     TaskStatus,
 )
+from src.junior_apogee.roles import AgentRole, role_for_agent_name
 from src.junior_apogee.utils.helpers import setup_logger, utcnow_iso
 
 APP_VERSION = "0.1.0b0"
@@ -46,8 +47,10 @@ def _jitter(base: float, spread: float = 0.03) -> float:
 
 
 def generate_demo_summaries() -> list[AgentSummary]:
+    """Generate compatibility actor summaries from canonical role baselines."""
     summaries: list[AgentSummary] = []
-    for agent, baseline in AGENT_BASELINES.items():
+    for role, profile in ROLE_PROFILES.items():
+        baseline = ROLE_BASELINES[role]
         task_success = _jitter(baseline.get("task_success") or 0.0)
         faithfulness = _jitter(baseline.get("faithfulness") or 0.0)
         tool_accuracy = _jitter(baseline.get("tool_accuracy") or 0.0)
@@ -59,7 +62,7 @@ def generate_demo_summaries() -> list[AgentSummary]:
         total_passed = int(total_tasks * task_success)
         summaries.append(
             AgentSummary(
-                agent=agent,
+                agent=profile.name,
                 task_success_rate=task_success,
                 faithfulness=faithfulness,
                 tool_accuracy=tool_accuracy,
@@ -81,9 +84,10 @@ def generate_demo_summaries() -> list[AgentSummary]:
 def generate_demo_drift_alerts(
     summaries: list[AgentSummary],
 ) -> list[DriftAlert]:
+    """Compare demo summaries with canonical role baselines."""
     alerts: list[DriftAlert] = []
     for summary in summaries:
-        baseline = AGENT_BASELINES.get(summary.agent, {})
+        baseline = ROLE_BASELINES.get(summary.role, {})
         baseline_ethics = baseline.get("ethics_rights") or 1.0
         if summary.ethics_rights_pass < baseline_ethics - 0.01:
             alerts.append(
@@ -96,7 +100,7 @@ def generate_demo_drift_alerts(
                     threshold=0.01,
                     severity=SeverityLevel.CRITICAL,
                     message=(
-                        f"{summary.agent.value}: ethics/rights dropped below baseline"
+                        f"{summary.role.value}: ethics/rights dropped below baseline"
                     ),
                 )
             )
@@ -115,58 +119,60 @@ def generate_demo_snapshot() -> DashboardSnapshot:
 
 
 def generate_demo_task_results() -> list[dict[str, Any]]:
+    """Generate role-first demo task rows while preserving actor identity."""
     families = [
         (
             "A-AP-01",
-            "Multi-Step Research Planning",
-            AgentName.APOGEE,
+            "Multi-Step Evaluation Planning",
+            AgentRole.EVALUATION_ORCHESTRATOR,
             EvalLayer.A_REASONING,
         ),
         (
             "B-AP-01",
             "Web Search Tool Selection",
-            AgentName.APOGEE,
+            AgentRole.EVALUATION_ORCHESTRATOR,
             EvalLayer.B_ACTION,
         ),
         (
             "C-PR-02",
-            "Prodigy Perfect Faithfulness",
-            AgentName.PRODIGY,
+            "Research Faithfulness Fixture",
+            AgentRole.RESEARCH_SYNTHESIS,
             EvalLayer.C_OUTCOMES,
         ),
         (
             "B-DJ-01",
-            "DemiJoule Escalation",
-            AgentName.DEMIJOULE,
+            "Uncertainty Escalation Fixture",
+            AgentRole.UNCERTAINTY_HUMAN_ESCALATION,
             EvalLayer.B_ACTION,
         ),
         (
             "GOV-OWASP-A01",
-            "Prompt Injection",
-            AgentName.COLLEEN,
+            "Prompt Injection Fixture",
+            AgentRole.GOVERNANCE_COMPLIANCE_REVIEW,
             EvalLayer.B_ACTION,
         ),
         (
             "C-AP-06",
-            "Archival Quality",
-            AgentName.APOGEE,
+            "Archival Quality Fixture",
+            AgentRole.EVALUATION_ORCHESTRATOR,
             EvalLayer.C_OUTCOMES,
         ),
         (
             "B-CL-01",
-            "OWASP Scan",
-            AgentName.COLLEEN,
+            "OWASP Scan Fixture",
+            AgentRole.GOVERNANCE_COMPLIANCE_REVIEW,
             EvalLayer.B_ACTION,
         ),
         (
             "C-RC-01",
-            "Workflow Completion",
-            AgentName.RECIPROCITY,
+            "Workflow Completion Fixture",
+            AgentRole.MULTI_AGENT_COORDINATION,
             EvalLayer.C_OUTCOMES,
         ),
     ]
     results: list[dict[str, Any]] = []
-    for family_id, name, agent, layer in families:
+    for family_id, name, role, layer in families:
+        agent = ROLE_PROFILES[role].name
         score = random.uniform(0.75, 1.0)
         status = TaskStatus.PASSED if score >= 0.70 else TaskStatus.FAILED
         results.append(
@@ -174,6 +180,7 @@ def generate_demo_task_results() -> list[dict[str, Any]]:
                 "family_id": family_id,
                 "name": name,
                 "agent": agent.value,
+                "role": role.value,
                 "layer": layer.value,
                 "score": round(score, 3),
                 "status": status.value,
@@ -184,12 +191,12 @@ def generate_demo_task_results() -> list[dict[str, Any]]:
 
 
 def generate_history(points: int = 20) -> dict[str, list[float]]:
-    """Synthetic time-series for the sparkline charts."""
-    history = {agent.value: [] for agent in AgentName}
+    """Synthetic time-series preserving compatibility actor keys."""
+    history = {profile.name.value: [] for profile in ROLE_PROFILES.values()}
     for _ in range(points):
-        for agent in AgentName:
-            base = AGENT_BASELINES.get(agent, {}).get("task_success") or 0.90
-            history[agent.value].append(round(_jitter(base, 0.04), 3))
+        for role, profile in ROLE_PROFILES.items():
+            base = ROLE_BASELINES.get(role, {}).get("task_success") or 0.90
+            history[profile.name.value].append(round(_jitter(base, 0.04), 3))
     return history
 
 
@@ -210,6 +217,7 @@ def api_snapshot() -> Response:
             "agent_summaries": [
                 {
                     "agent": summary.agent.value,
+                    "role": summary.role.value,
                     "task_success_rate": round(summary.task_success_rate, 4),
                     "faithfulness": round(summary.faithfulness, 4),
                     "tool_accuracy": round(summary.tool_accuracy, 4),
@@ -230,6 +238,7 @@ def api_snapshot() -> Response:
             "drift_alerts": [
                 {
                     "agent": alert.agent.value,
+                    "role": alert.role.value,
                     "metric_name": alert.metric_name,
                     "baseline_value": round(alert.baseline_value, 4),
                     "current_value": round(alert.current_value, 4),
@@ -256,22 +265,21 @@ def api_history() -> Response:
 
 @app.route("/api/v1/agents")
 def api_agents() -> Response:
-    from src.junior_apogee.agents.profiles import ALL_AGENTS
-
     return jsonify(
         [
             {
-                "name": agent.name.value,
-                "description": agent.description,
-                "model_backend": agent.model_backend,
-                "temperature": agent.temperature,
-                "tags": agent.tags,
+                "name": profile.name.value,
+                "role": role.value,
+                "description": profile.description,
+                "model_backend": profile.model_backend,
+                "temperature": profile.temperature,
+                "tags": profile.tags,
                 "capabilities": [
                     {"name": capability.name, "description": capability.description}
-                    for capability in agent.capabilities
+                    for capability in profile.capabilities
                 ],
             }
-            for agent in ALL_AGENTS.values()
+            for role, profile in ROLE_PROFILES.items()
         ]
     )
 
@@ -279,18 +287,18 @@ def api_agents() -> Response:
 @app.route("/api/v1/compliance")
 def api_compliance() -> Response:
     runs = [
-        make_run(agent=AgentName.APOGEE, output="Safe compliant response."),
+        make_run(agent=AgentName.APOGEE, output="Safe synthetic response."),
         make_run(
             agent=AgentName.PRODIGY,
             output="Research complete. Source: example.com",
         ),
         make_run(
             agent=AgentName.COLLEEN,
-            output="OWASP scan complete. No violations.",
+            output="Project-local governance checks complete. No fixture violations.",
         ),
         make_run(
             agent=AgentName.DEMIJOULE,
-            output="Monitoring drift. All within bounds.",
+            output="Monitoring drift. All synthetic signals within bounds.",
         ),
         make_run(
             agent=AgentName.RECIPROCITY,
@@ -305,6 +313,7 @@ def api_compliance() -> Response:
             "total_checks": report.total_checks,
             "passed_checks": report.passed_checks,
             "compliance_score": round(report.compliance_score, 4),
+            "scope": "synthetic project-local checks; not external compliance certification",
             "critical_count": len(report.critical_flags),
             "agents_evaluated": [agent.value for agent in report.agents_evaluated],
             "flags": [
@@ -315,6 +324,7 @@ def api_compliance() -> Response:
                     "severity": flag.severity.value,
                     "description": flag.description,
                     "agent": flag.agent.value if flag.agent else None,
+                    "role": flag.role.value if flag.role else None,
                     "mitigated": flag.mitigated,
                 }
                 for flag in report.flags
@@ -349,6 +359,7 @@ def api_evaluate() -> tuple[Response, int] | Response:
         {
             "eval_id": result.eval_id,
             "agent": agent.value,
+            "role": role_for_agent_name(agent).value,
             "overall_score": round(result.overall_score, 4),
             "pass_rate": round(result.pass_rate, 4),
             "task_status": task_status,
@@ -377,6 +388,7 @@ def api_stream() -> Response:
                     "summaries": [
                         {
                             "agent": summary.agent.value,
+                            "role": summary.role.value,
                             "overall_score": round(summary.overall_score, 4),
                             "task_success": round(summary.task_success_rate, 4),
                         }
@@ -404,7 +416,7 @@ def health() -> Response:
 
 def main() -> None:
     logger.info(
-        f"Starting Junior Apogee dashboard on {FLASK_HOST}:{FLASK_PORT}"
+        f"Starting AI Evaluation Workbench dashboard on {FLASK_HOST}:{FLASK_PORT}"
     )
     app.run(host=FLASK_HOST, port=FLASK_PORT, debug=DEBUG)
 
