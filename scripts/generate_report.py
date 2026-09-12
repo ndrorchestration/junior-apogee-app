@@ -111,7 +111,8 @@ def run_report(
     report_data: dict[str, object] = {
         "generated_at": datetime.utcnow().isoformat() + "Z",
         "platform_version": APP_VERSION,
-        "actors": [],
+        # Compatibility key retained; entries now also expose functional `role`.
+        "agents": [],
     }
 
     for agent in target_agents:
@@ -170,13 +171,15 @@ def run_report(
                     for key, value in result.action.model_dump().items()
                 }
 
-        report_data["actors"].append(actor_report)
+        report_data["agents"].append(actor_report)
 
     compliance_report = governance.build_compliance_report(all_runs)
-    report_data["governance_review"] = {
+    # Compatibility key retained; scope metadata prevents interpreting this
+    # synthetic project-local score as external compliance certification.
+    report_data["compliance"] = {
         "total_checks": compliance_report.total_checks,
         "passed_checks": compliance_report.passed_checks,
-        "project_local_score": round(compliance_report.compliance_score, 4),
+        "compliance_score": round(compliance_report.compliance_score, 4),
         "critical_flags": len(compliance_report.critical_flags),
         "total_flags": len(compliance_report.flags),
         "scope": "synthetic project-local checks; not external compliance certification",
