@@ -1,4 +1,4 @@
-"""Configuration loading helpers for the Junior Apogee platform."""
+"""Configuration loading helpers for the AI Evaluation Workbench."""
 
 from __future__ import annotations
 
