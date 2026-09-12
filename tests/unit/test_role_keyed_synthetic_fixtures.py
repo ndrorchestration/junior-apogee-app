@@ -1,3 +1,4 @@
+from scripts.generate_report import run_report
 from src.junior_apogee.models import AgentName
 from src.junior_apogee.roles import AgentRole, role_for_agent_name
 from src.junior_apogee.synthetic_fixtures import (
@@ -34,3 +35,20 @@ def test_legacy_actor_projection_preserves_fixture_semantics():
         role = role_for_agent_name(actor)
         assert role in ROLE_OUTPUT_TEMPLATES
         assert isinstance(tool_calls_for_role(role), list)
+
+
+def test_report_keeps_compatibility_keys_and_adds_role_semantics():
+    report = run_report(
+        agent_names=[AgentName.PRODIGY.value],
+        tasks_per_agent=1,
+    )
+
+    assert "agents" in report
+    assert "compliance" in report
+    assert len(report["agents"]) == 1
+    row = report["agents"][0]
+    assert row["agent"] == AgentName.PRODIGY.value
+    assert row["role"] == AgentRole.RESEARCH_SYNTHESIS.value
+    assert report["compliance"]["scope"].endswith(
+        "not external compliance certification"
+    )
