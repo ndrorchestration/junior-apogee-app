@@ -396,13 +396,15 @@ class EvaluationEngine:
         """Evaluate a batch of tasks and aggregate into a single EvalResult."""
         if len(tasks) != len(runs):
             raise ValueError("tasks and runs must be the same length")
+        if not runs:
+            raise ValueError("empty batch has no actor provenance")
 
         all_task_results: List[TaskResult] = []
         all_flags: List[GovernanceFlag] = []
         reasoning_scores: List[ReasoningScore] = []
         action_scores: List[ActionScore] = []
         outcome_scores: List[OutcomeScore] = []
-        agent = runs[0].agent if runs else AgentName.APOGEE
+        agent = runs[0].agent
 
         for task, run in zip(tasks, runs):
             result = self.evaluate_run(task, run)
