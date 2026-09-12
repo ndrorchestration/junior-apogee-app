@@ -11,7 +11,9 @@ def test_notice_is_role_and_evidence_bounded() -> None:
     assert "AI Evaluation Workbench" in text
     assert "functional roles" in text
     assert "no DGAF authority" in text
-    assert "does not establish compliance, certification, or production readiness" in text
+    assert (
+        "does not establish compliance, certification, or production readiness" in text
+    )
 
     forbidden = (
         "production QA evaluation platform",
