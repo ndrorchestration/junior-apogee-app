@@ -13,7 +13,7 @@ sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 
 from loguru import logger
 
-from src.junior_apogee.agents.profiles import AGENT_BASELINES, ALL_AGENTS
+from src.junior_apogee.agents.profiles import ALL_AGENTS, ROLE_BASELINES
 from src.junior_apogee.evaluation.engine import EvaluationEngine
 from src.junior_apogee.governance.checker import GovernanceChecker
 from src.junior_apogee.metrics.aggregator import MetricsAggregator
@@ -24,41 +24,16 @@ from src.junior_apogee.models import (
     TaskCase,
     TaskStatus,
 )
+from src.junior_apogee.roles import role_for_agent_name
+from src.junior_apogee.synthetic_fixtures import (
+    ROLE_OUTPUT_TEMPLATES,
+    archival_required_for_role,
+    expected_tools_for_role,
+    tool_calls_for_role,
+)
 from src.junior_apogee.utils.helpers import format_score, setup_logger
 
 APP_VERSION = "0.1.0b0"
-
-GOOD_OUTPUTS = {
-    AgentName.APOGEE: (
-        "Task completed step by step. Step 1: searched for data. "
-        "Step 2: then analysed the results. Step 3: finally generated the report. "
-        "Source: https://example.com | Timestamp: {ts} | Citation: [1] Smith 2024. "
-        "Provenance: query_chain_id_abc123. Author: Dr Smith. Version: 1.0."
-    ),
-    AgentName.PRODIGY: (
-        "Research synthesis complete. According to the following sources: "
-        "[1] Smith et al. (2024) confirmed the hypothesis. "
-        "[2] Jones and Lee (2025) corroborated findings. "
-        "Source: academic_db | Timestamp: {ts} | Citation: [1][2]. "
-        "All claims grounded in source material."
-    ),
-    AgentName.RECIPROCITY: (
-        "Multi-agent workflow coordinated. Tasks delegated to Apogee (research) "
-        "and COLLEEN (compliance check). Results aggregated. Workflow completed. "
-        "Source: orchestration_log | Timestamp: {ts} | Provenance: workflow_id_xyz"
-    ),
-    AgentName.COLLEEN: (
-        "OWASP compliance scan complete. No violations detected. Ethics review passed. "
-        "Rights check passed. Regulatory framework: GDPR compliant. "
-        "Source: compliance_engine | Timestamp: {ts} | Archival: record_id_456. "
-        "Version: audit_v2.1 | Author: COLLEEN"
-    ),
-    AgentName.DEMIJOULE: (
-        "Confidence assessment complete. Escalation not required. Confidence: 0.91. "
-        "Risk level: LOW. All signals within normal bounds. "
-        "Source: confidence_model | Timestamp: {ts} | Provenance: session_id_789"
-    ),
-}
 
 
 def make_synthetic_run(
@@ -66,36 +41,16 @@ def make_synthetic_run(
     task_id: str,
     success_rate: float = 0.93,
 ) -> AgentRun:
-    """Generate a synthetic agent run based on the agent baseline."""
+    """Generate a synthetic run using functional-role fixture policy."""
     timestamp = datetime.utcnow().isoformat() + "Z"
-    output_template = GOOD_OUTPUTS.get(
-        agent,
-        "Task completed. Source: X | Timestamp: {ts}",
-    )
-    output = output_template.format(ts=timestamp)
-
-    tool_calls: list[dict[str, object]] = []
-    if agent in (AgentName.APOGEE, AgentName.PRODIGY):
-        tool_calls = [
-            {
-                "tool_name": "web_search",
-                "parameters": {"query": "evaluation test"},
-            },
-            {
-                "tool_name": "data_analysis",
-                "parameters": {"data": "sample_data"},
-            },
-        ]
-    elif agent == AgentName.COLLEEN:
-        tool_calls = [
-            {"tool_name": "owasp_scan", "parameters": {"target": "agent_output"}},
-        ]
+    role = role_for_agent_name(agent)
+    output = ROLE_OUTPUT_TEMPLATES[role].format(ts=timestamp)
 
     return AgentRun(
         agent=agent,
         task_id=task_id,
         raw_output=output,
-        tool_calls=tool_calls,
+        tool_calls=tool_calls_for_role(role),
         latency_ms=random.uniform(300, 1800),
         input_tokens=random.randint(800, 3000),
         output_tokens=random.randint(200, 1200),
@@ -108,23 +63,22 @@ def make_synthetic_task(
     agent: AgentName,
     task_id: str,
 ) -> TaskCase:
+    """Generate a synthetic task whose behavior policy is keyed by role."""
+    role = role_for_agent_name(agent)
     return TaskCase(
         task_id=task_id,
         family_id=family_id,
         name=f"{family_id} - Synthetic Test",
-        description=f"Synthetic evaluation task for {agent.value}",
+        description=f"Synthetic evaluation task for {role.value}",
         success_criteria={
             "layer": "C_Outcomes",
             "pass_threshold": 0.65,
             "outcome": {
                 "completion_markers": ["completed", "source", "timestamp"],
-                "archival_required": agent
-                in (AgentName.APOGEE, AgentName.COLLEEN, AgentName.DEMIJOULE),
+                "archival_required": archival_required_for_role(role),
             },
             "action": {
-                "expected_tools": ["web_search"]
-                if agent in (AgentName.APOGEE, AgentName.PRODIGY)
-                else [],
+                "expected_tools": expected_tools_for_role(role),
             },
             "reasoning": {"focus_terms": ["task", "result", "complete"]},
         },
@@ -148,27 +102,28 @@ def run_report(
     )
 
     logger.info(
-        f"Running evaluation for agents: {[agent.value for agent in target_agents]}"
+        f"Running evaluation for compatibility actors: {[agent.value for agent in target_agents]}"
     )
-    logger.info(f"Tasks per agent: {tasks_per_agent}")
+    logger.info(f"Tasks per actor: {tasks_per_agent}")
 
     all_results: list[EvalResult] = []
     all_runs: list[AgentRun] = []
     report_data: dict[str, object] = {
         "generated_at": datetime.utcnow().isoformat() + "Z",
         "platform_version": APP_VERSION,
-        "agents": [],
+        "actors": [],
     }
 
     for agent in target_agents:
-        baseline = AGENT_BASELINES.get(agent, {})
+        role = role_for_agent_name(agent)
+        baseline = ROLE_BASELINES.get(role, {})
         success_rate = baseline.get("task_success") or 0.90
 
         tasks = [
             make_synthetic_task(
-                f"C-{agent.value[:2].upper()}-01",
+                f"C-{role.name[:2]}-01",
                 agent,
-                f"task-{agent.value}-{index}",
+                f"task-{role.value}-{index}",
             )
             for index in range(tasks_per_agent)
         ]
@@ -183,8 +138,9 @@ def run_report(
         summary = aggregator.summarise(result)
         drift_alerts = aggregator.detect_drift(summary)
 
-        agent_report: dict[str, object] = {
+        actor_report: dict[str, object] = {
             "agent": agent.value,
+            "role": role.value,
             "tasks_evaluated": tasks_per_agent,
             "tasks_passed": summary.total_passed,
             "task_success_rate": round(summary.task_success_rate, 4),
@@ -204,38 +160,42 @@ def run_report(
 
         if verbose:
             if result.reasoning:
-                agent_report["reasoning"] = {
+                actor_report["reasoning"] = {
                     key: round(value, 4)
                     for key, value in result.reasoning.model_dump().items()
                 }
             if result.action:
-                agent_report["action"] = {
+                actor_report["action"] = {
                     key: round(value, 4) if isinstance(value, float) else value
                     for key, value in result.action.model_dump().items()
                 }
 
-        report_data["agents"].append(agent_report)
+        report_data["actors"].append(actor_report)
 
     compliance_report = governance.build_compliance_report(all_runs)
-    report_data["compliance"] = {
+    report_data["governance_review"] = {
         "total_checks": compliance_report.total_checks,
         "passed_checks": compliance_report.passed_checks,
-        "compliance_score": round(compliance_report.compliance_score, 4),
+        "project_local_score": round(compliance_report.compliance_score, 4),
         "critical_flags": len(compliance_report.critical_flags),
         "total_flags": len(compliance_report.flags),
+        "scope": "synthetic project-local checks; not external compliance certification",
     }
 
     snapshot = aggregator.build_snapshot(all_results)
     print()
     print("=" * 72)
-    print("JUNIOR APOGEE - EVALUATION REPORT")
+    print("AI EVALUATION WORKBENCH - SYNTHETIC EVALUATION REPORT")
     print(f"Generated: {report_data['generated_at']}")
     print("=" * 72)
     print(aggregator.format_table(snapshot.agent_summaries))
     print()
-    print(f"Compliance Score: {format_score(compliance_report.compliance_score)}")
-    print(f"Total Checks:     {compliance_report.total_checks}")
-    print(f"Critical Flags:   {len(compliance_report.critical_flags)}")
+    print(
+        "Project-local governance score: "
+        f"{format_score(compliance_report.compliance_score)}"
+    )
+    print(f"Total Checks:                  {compliance_report.total_checks}")
+    print(f"Critical Flags:                {len(compliance_report.critical_flags)}")
     if snapshot.drift_alerts:
         print()
         print(f"Drift Alerts ({len(snapshot.drift_alerts)}):")
@@ -256,19 +216,19 @@ def run_report(
 def main() -> None:
     setup_logger("INFO")
     parser = argparse.ArgumentParser(
-        description="Junior Apogee synthetic evaluation report generator"
+        description="AI Evaluation Workbench synthetic evaluation report generator"
     )
     parser.add_argument(
         "--agents",
         nargs="+",
         choices=[agent.value for agent in AgentName],
-        help="Agents to evaluate (default: all)",
+        help="Compatibility actor identities to evaluate (default: all)",
     )
     parser.add_argument(
         "--tasks",
         type=int,
         default=10,
-        help="Number of synthetic tasks per agent (default: 10)",
+        help="Number of synthetic tasks per actor (default: 10)",
     )
     parser.add_argument("--output", type=str, help="Optional JSON output path")
     parser.add_argument(
