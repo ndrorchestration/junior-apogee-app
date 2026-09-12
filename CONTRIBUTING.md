@@ -1,8 +1,8 @@
-# Contributing to Junior Apogee App
+# Contributing to the AI Evaluation Workbench
 
 ## Governance and evidence boundary
 
-Junior Apogee App is an experimental evaluation/QA application in the ndrorchestration ecosystem. Project-local tiers, rubrics, attestations, and DGAF terminology do not constitute external certification, accreditation, compliance, or production-readiness claims.
+This is an experimental evaluation/QA application in the ndrorchestration ecosystem. Project-local tiers, rubrics, attestations, and DGAF terminology do not constitute external certification, accreditation, compliance, or production-readiness claims.
 
 ## What This Platform Does
 
@@ -12,6 +12,12 @@ Junior Apogee App is an experimental evaluation/QA application in the ndrorchest
 - Sentinel-related safety/integrity checks where implemented
 
 Any reported score or tier must be tied to the exact evaluated artifact, test/evaluation procedure, and dated evidence. A project-local score is not an external certification.
+
+## Naming boundary
+
+The former product/agent proper-name family is historical-only. Do not introduce it into new current-facing product, agent, persona, authority, or marketing language. Preserve the useful underlying responsibilities by function: orchestration, verification, evidence governance, bounded scoring, provenance review, integrity checks, and escalation support.
+
+Legacy repository, package, import, CLI, environment-variable, fixture, or other compatibility identifiers may remain until the final brand and technical migration are explicitly adopted.
 
 ## Standards & Attribution
 
