@@ -15,17 +15,14 @@ limitations under the License.
 
 ---
 
-This project is the production QA evaluation platform for the Flickerflash DGAF ecosystem, featuring:
-- Agent Apogee evidence governance — Phase 1-4 source validation and multi-phase review
-- Agent Amethyst meta-orchestration and Gold Star certification authority
-- Agent Sentinel CI/CD integrity enforcement and guardrail activation
-- DGAF (Dynamic Governance Agentic Formation Framework) compliance alignment
-- NIST AI Risk Management Framework (AI RMF) evaluation protocols
-- OWASP Agentic Top 10 safety sweep integration
-- Rose Gold Submission framework and evidence scoring rubrics
-- Benchmark evaluation suite with multi-dimensional scoring
+AI Evaluation Workbench — Working Title
 
-Governance spine: https://github.com/Flickerflash/DGAF-Framework
-Agent Roster: https://github.com/Flickerflash/DGAF-Framework/blob/main/ENSEMBLE_ROSTER.md
+This repository contains an experimental AI evaluation workbench for bounded evaluation, evidence review, configurable rubrics, hard/non-compensatory gates, provenance checks, comparison controls, replay/debugging, escalation, and explicit tested-versus-NOT-TESTED coverage.
 
-Designed for institutional and enterprise evaluation of AI system governance compliance.
+Current behavior is keyed to repository-local functional roles and capabilities. Historical Agent Apogee, Agent Amethyst, Agent Sentinel, and related named-agent labels may remain in compatibility or provenance records, but they confer no DGAF authority and do not independently define current permissions, certification, or governance status.
+
+References to DGAF, the NIST AI Risk Management Framework (AI RMF), OWASP Agentic Top 10, and other governance/security frameworks are evaluation or alignment references only. Their presence does not establish compliance, certification, or production readiness, and local tests do not constitute external assurance.
+
+Repository slug `junior-apogee-app` is retained for compatibility and provenance while the product uses the working title AI Evaluation Workbench. Evaluation results from this repository do not by themselves authorize deployment, production use, or DGAF governance actions.
+
+Current DGAF reference: https://github.com/ndrorchestration/DGAF-Framework
