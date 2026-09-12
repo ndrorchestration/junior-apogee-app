@@ -10,6 +10,9 @@ from typing import Any
 import yaml
 from loguru import logger
 
+from .models import AgentName
+from .roles import role_for_agent_name
+
 
 # Compatibility translation for legacy configuration values. The source files may
 # retain historical identifiers until the final technical rename, but callers must
@@ -44,7 +47,7 @@ def _candidate_config_dirs() -> list[Path]:
         candidates.append(Path(configured_dir).expanduser())
 
     package_dir = Path(__file__).resolve().parent
-    repo_root = package_dir.parents[2]
+    repo_root = package_dir.parents[1]
 
     candidates.extend(
         [
@@ -74,6 +77,24 @@ def _load_yaml(filename: str) -> dict[str, Any]:
     return {}
 
 
+def _with_task_family_roles(config: dict[str, Any]) -> dict[str, Any]:
+    """Add canonical functional roles to loaded task-family assignments.
+
+    The `agent` field remains a compatibility/lineage value. Unknown assignments
+    fail closed rather than being projected to a guessed role.
+    """
+    for family in config.get("task_families", []):
+        actor_label = family.get("agent")
+        try:
+            actor = AgentName(actor_label)
+        except (TypeError, ValueError) as exc:
+            raise ValueError(
+                f"Unknown task-family actor assignment: {actor_label!r}"
+            ) from exc
+        family["role"] = role_for_agent_name(actor).value
+    return config
+
+
 @lru_cache(maxsize=1)
 def get_agents_config() -> dict[str, Any]:
     return _load_yaml("agents.yaml")
@@ -86,7 +107,7 @@ def get_metrics_config() -> dict[str, Any]:
 
 @lru_cache(maxsize=1)
 def get_task_families_config() -> dict[str, Any]:
-    return _load_yaml("task_families.yaml")
+    return _with_task_family_roles(_load_yaml("task_families.yaml"))
 
 
 def get_agent_names() -> list[str]:
