@@ -11,6 +11,31 @@ import yaml
 from loguru import logger
 
 
+# Compatibility translation for legacy configuration values. The source files may
+# retain historical identifiers until the final technical rename, but callers must
+# receive only current functional labels.
+_LEGACY_DISPLAY_LABEL = "Apogee"
+_CURRENT_DISPLAY_LABEL = "Evaluation Orchestrator"
+_LEGACY_TAG = "apogee"
+_CURRENT_TAG = "evaluation-orchestrator"
+
+
+def _normalize_legacy_labels(value: Any) -> Any:
+    """Translate retired display labels in loaded configuration data."""
+    if isinstance(value, dict):
+        return {
+            _normalize_legacy_labels(key): _normalize_legacy_labels(item)
+            for key, item in value.items()
+        }
+    if isinstance(value, list):
+        return [_normalize_legacy_labels(item) for item in value]
+    if isinstance(value, str):
+        if value == _LEGACY_TAG:
+            return _CURRENT_TAG
+        return value.replace(_LEGACY_DISPLAY_LABEL, _CURRENT_DISPLAY_LABEL)
+    return value
+
+
 def _candidate_config_dirs() -> list[Path]:
     configured_dir = os.getenv("JUNIOR_APOGEE_CONFIG_DIR")
     candidates: list[Path] = []
@@ -42,7 +67,8 @@ def _load_yaml(filename: str) -> dict[str, Any]:
         filepath = config_dir / filename
         if filepath.exists():
             with open(filepath, "r", encoding="utf-8") as file_handle:
-                return yaml.safe_load(file_handle) or {}
+                loaded = yaml.safe_load(file_handle) or {}
+            return _normalize_legacy_labels(loaded)
 
     logger.warning("Config file not found in known locations: {}", filename)
     return {}
