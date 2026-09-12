@@ -7,9 +7,12 @@ from __future__ import annotations
 
 from datetime import datetime
 from enum import Enum
-from typing import Any, Dict, List, Optional, Union
+from typing import TYPE_CHECKING, Any, Dict, List, Optional, Union
 from pydantic import BaseModel, Field, field_validator
 import uuid
+
+if TYPE_CHECKING:
+    from .roles import AgentRole
 
 
 # ─────────────────────────────────────────────
@@ -83,6 +86,13 @@ class AgentConfig(BaseModel):
             raise ValueError("temperature must be between 0.0 and 2.0")
         return v
 
+    @property
+    def role(self) -> "AgentRole":
+        """Functional role derived from the compatibility identity."""
+        from .roles import role_for_agent_name
+
+        return role_for_agent_name(self.name)
+
 
 class AgentRun(BaseModel):
     run_id: str = Field(default_factory=lambda: str(uuid.uuid4()))
@@ -97,6 +107,13 @@ class AgentRun(BaseModel):
     raw_output: str = ""
     status: TaskStatus = TaskStatus.PENDING
     error: Optional[str] = None
+
+    @property
+    def role(self) -> "AgentRole":
+        """Functional role derived from the compatibility identity."""
+        from .roles import role_for_agent_name
+
+        return role_for_agent_name(self.agent)
 
     @property
     def total_tokens(self) -> int:
