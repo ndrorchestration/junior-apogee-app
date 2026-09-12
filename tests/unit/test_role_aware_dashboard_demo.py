@@ -32,3 +32,16 @@ def test_demo_task_results_expose_role_and_keep_actor_identity():
     for row in rows:
         assert row["agent"]
         assert row["role"] in {role.value for role in AgentRole}
+
+
+def test_ad_hoc_evaluation_requires_explicit_actor_identity():
+    client = app.test_client()
+    response = client.post(
+        "/api/v1/evaluate",
+        json={"output": "Task completed successfully."},
+    )
+
+    assert response.status_code == 400
+    assert response.get_json() == {
+        "error": "Missing required actor identity: agent"
+    }
